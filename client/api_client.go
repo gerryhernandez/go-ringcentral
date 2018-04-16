@@ -241,7 +241,7 @@ func (c *APIClient) prepareRequest(
 		if len(fileBytes) > 0 && fileName != "" {
 			w.Boundary()
 			//_, fileNm := filepath.Split(fileName)
-			part, err := w.CreateFormFile("file", filepath.Base(fileName))
+			part, err := w.CreateFormFile("attachment", filepath.Base(fileName))
 			if err != nil {
 				return nil, err
 			}
