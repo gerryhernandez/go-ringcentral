@@ -817,13 +817,13 @@ func (a *MessagesApiService) SyncMessages(ctx context.Context, accountId string,
 	if localVarTempParam, localVarOk := localVarOptionals["dateTo"].(string); localVarOk {
 		localVarQueryParams.Add("dateTo", parameterToString(localVarTempParam, ""))
 	}
-	if localVarTempParam, localVarOk := localVarOptionals["direction"].([]string); localVarOk {
+	if localVarTempParam, localVarOk := localVarOptionals["direction"].(string); localVarOk {
 		localVarQueryParams.Add("direction", parameterToString(localVarTempParam, "multi"))
 	}
 	if localVarTempParam, localVarOk := localVarOptionals["distinctConversations"].(bool); localVarOk {
 		localVarQueryParams.Add("distinctConversations", parameterToString(localVarTempParam, ""))
 	}
-	if localVarTempParam, localVarOk := localVarOptionals["messageType"].([]string); localVarOk {
+	if localVarTempParam, localVarOk := localVarOptionals["messageType"].(string); localVarOk {
 		localVarQueryParams.Add("messageType", parameterToString(localVarTempParam, "multi"))
 	}
 	if localVarTempParam, localVarOk := localVarOptionals["recordCount"].(int32); localVarOk {
@@ -832,8 +832,8 @@ func (a *MessagesApiService) SyncMessages(ctx context.Context, accountId string,
 	if localVarTempParam, localVarOk := localVarOptionals["syncToken"].(string); localVarOk {
 		localVarQueryParams.Add("syncToken", parameterToString(localVarTempParam, ""))
 	}
-	if localVarTempParam, localVarOk := localVarOptionals["syncType"].([]string); localVarOk {
-		localVarQueryParams.Add("syncType", parameterToString(localVarTempParam, "multi"))
+	if localVarTempParam, localVarOk := localVarOptionals["syncType"].(string); localVarOk {
+		localVarQueryParams.Add("syncType", parameterToString(localVarTempParam, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
