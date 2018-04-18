@@ -11,12 +11,13 @@ package ringcentral
 
 import (
 	"time"
+	"encoding/json"
 )
 
 type GetMessageInfoResponse struct {
 
 	// Internal identifier of a message
-	Id string `json:"id,omitempty"`
+	Id json.Number `json:"id,omitempty"`
 
 	// Canonical URI of a message
 	Uri string `json:"uri,omitempty"`

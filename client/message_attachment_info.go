@@ -9,10 +9,12 @@
 
 package ringcentral
 
+import "encoding/json"
+
 type MessageAttachmentInfo struct {
 
 	// Internal identifier of a message attachment
-	Id string `json:"id,omitempty"`
+	Id json.Number `json:"id,omitempty"`
 
 	// Canonical URI of a message attachment
 	Uri string `json:"uri,omitempty"`
