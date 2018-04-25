@@ -16,9 +16,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 	"time"
+	"io"
 )
 
 // Linger please
@@ -518,7 +518,8 @@ func (a *MessagesApiService) LoadMessageAttachment(ctx context.Context, accountI
 * @param ctx context.Context for authentication, logging, tracing, etc.
 @param accountId Internal identifier of a RingCentral account (integer) or tilde (~) to indicate the account which was logged-in within the current session.
 @param extensionId Internal identifier of an extension (integer) or tilde (~) to indicate the extension assigned to the account logged-in within the current session
-@param attachment File to upload
+@param attachmentReader Reader for file to upload
+@param attachmentName File name for uploaded attachment (required if attachmentReader is not nil)
 @param faxResolution Resolution of Fax
 @param to To Phone Number
 @param optional (nil or map[string]interface{}) with one or more of:
@@ -527,7 +528,7 @@ func (a *MessagesApiService) LoadMessageAttachment(ctx context.Context, accountI
     @param "coverIndex" (int32) Cover page identifier. For the list of available cover page identifiers please call the method Fax Cover Pages. If not specified, the default cover page which is configured in &#39;Outbound Fax Settings&#39; is attached
     @param "coverPageText" (string) Cover page text, entered by the fax sender and printed on the cover page. Maximum length is limited to 1024 symbols
 @return FaxResponse*/
-func (a *MessagesApiService) SendFaxMessage(ctx context.Context, accountId string, extensionId string, localVarFile *os.File, faxResolution string, to []string, localVarOptionals map[string]interface{}) (FaxResponse, *http.Response, error) {
+func (a *MessagesApiService) SendFaxMessage(ctx context.Context, accountId string, extensionId string, attachmentReader *io.Reader, attachmentName *string, faxResolution string, to []string, localVarOptionals map[string]interface{}) (FaxResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -577,11 +578,10 @@ func (a *MessagesApiService) SendFaxMessage(ctx context.Context, accountId strin
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	if localVarFile != nil {
-		fbs, _ := ioutil.ReadAll(localVarFile)
+	if attachmentReader != nil {
+		fbs, _ := ioutil.ReadAll(*attachmentReader)
 		localVarFileBytes = fbs
-		localVarFileName = localVarFile.Name()
-		localVarFile.Close()
+		localVarFileName = *attachmentName
 	}
 	localVarFormParams.Add("faxResolution", parameterToString(faxResolution, ""))
 	localVarFormParams.Add("to", parameterToString(to, "csv"))
